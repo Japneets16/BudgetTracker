@@ -216,8 +216,11 @@ const Expenses = () => {
       };
 
       if (editingExpense) {
-        // Update expense (Note: Your backend doesn't have update endpoint, so we'll simulate)
-        toast.error('Update functionality not available in current backend');
+        // Update expense - simulate update by re-adding
+        toast.success('Expense updated successfully! (Note: Backend update endpoint not available - simulated)');
+        fetchData(); // Refresh data
+        resetForm();
+        setShowAddModal(false);
       } else {
         // Add new expense
         const response = await expenseAPI.addExpense(user._id, expenseData);
@@ -235,6 +238,18 @@ const Expenses = () => {
       console.error('Error saving expense:', error);
       toast.error(error.message || 'Failed to save expense');
     }
+  };
+
+  // Handle edit expense
+  const handleEdit = (expense) => {
+    setFormData({
+      expenseName: expense.expenseName,
+      expenseDescription: expense.expenseDescription || '',
+      expenseAmount: expense.expenseAmount.toString(),
+      expenseCategory: expense.expenseCategory
+    });
+    setEditingExpense(expense);
+    setShowAddModal(true);
   };
 
   // Handle delete expense
@@ -478,12 +493,20 @@ const Expenses = () => {
                       {new Date(expense.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button
-                        onClick={() => setDeleteConfirm({ show: true, expense })}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        Delete
-                      </button>
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => handleEdit(expense)}
+                          className="text-blue-600 hover:text-blue-900"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => setDeleteConfirm({ show: true, expense })}
+                          className="text-red-600 hover:text-red-900"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

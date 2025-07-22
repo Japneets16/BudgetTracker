@@ -3,8 +3,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './hooks/useAuth';
+import { ThemeProvider } from './hooks/useTheme';
 import Layout from './components/Layout/Layout';
 import LoadingSpinner from './components/UI/LoadingSpinner';
+import InstallPrompt from './components/UI/InstallPrompt';
 
 // Import pages
 import Login from './pages/Auth/Login';
@@ -12,6 +14,10 @@ import Register from './pages/Auth/Register';
 import OTP from './pages/Auth/OTP';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Expenses from './pages/Expenses/Expenses';
+import Budget from './pages/Budget/Budget';
+import Analytics from './pages/Analytics/Analytics';
+import Profile from './pages/Profile/Profile';
+import Settings from './pages/Settings/Settings';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -75,45 +81,25 @@ const AppRoutes = () => {
           </ProtectedRoute>
         } />
         
-        {/* Placeholder routes for future pages */}
+        {/* Full-featured pages */}
         <Route path="/budget" element={
           <ProtectedRoute>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">Budget Management</h1>
-                <p className="text-gray-600">Coming soon...</p>
-              </div>
-            </div>
+            <Budget />
           </ProtectedRoute>
         } />
         <Route path="/analytics" element={
           <ProtectedRoute>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">Analytics</h1>
-                <p className="text-gray-600">Coming soon...</p>
-              </div>
-            </div>
+            <Analytics />
           </ProtectedRoute>
         } />
         <Route path="/profile" element={
           <ProtectedRoute>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">Profile</h1>
-                <p className="text-gray-600">Coming soon...</p>
-              </div>
-            </div>
+            <Profile />
           </ProtectedRoute>
         } />
         <Route path="/settings" element={
           <ProtectedRoute>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">Settings</h1>
-                <p className="text-gray-600">Coming soon...</p>
-              </div>
-            </div>
+            <Settings />
           </ProtectedRoute>
         } />
         
@@ -155,39 +141,44 @@ const App = () => {
   }, []);
 
   return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
-          <AppRoutes />
-          
-          {/* Toast Notifications */}
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#363636',
-                color: '#fff',
-              },
-              success: {
-                duration: 3000,
-                iconTheme: {
-                  primary: '#66BB6A',
-                  secondary: '#fff',
-                },
-              },
-              error: {
+    <ThemeProvider>
+      <AuthProvider>
+        <Router>
+          <div className="App">
+            <AppRoutes />
+            
+            {/* Toast Notifications */}
+            <Toaster
+              position="top-right"
+              toastOptions={{
                 duration: 4000,
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#fff',
+                style: {
+                  background: '#363636',
+                  color: '#fff',
                 },
-              },
-            }}
-          />
-        </div>
-      </Router>
-    </AuthProvider>
+                success: {
+                  duration: 3000,
+                  iconTheme: {
+                    primary: '#66BB6A',
+                    secondary: '#fff',
+                  },
+                },
+                error: {
+                  duration: 4000,
+                  iconTheme: {
+                    primary: '#ef4444',
+                    secondary: '#fff',
+                  },
+                },
+              }}
+            />
+            
+            {/* PWA Install Prompt */}
+            <InstallPrompt />
+          </div>
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useOnline } from '../../hooks/useOnline';
+import { useTheme } from '../../hooks/useTheme';
 
 const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const isOnline = useOnline();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   // Handle logout
@@ -128,6 +130,17 @@ const Header = () => {
                   >
                     Settings
                   </Link>
+                  <hr className="my-1" />
+                  <button
+                    onClick={() => {
+                      toggleTheme();
+                      setShowUserMenu(false);
+                    }}
+                    className="flex items-center justify-between w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+                    <span className="text-lg">{isDarkMode ? '☀️' : '🌙'}</span>
+                  </button>
                   <hr className="my-1" />
                   <button
                     onClick={handleLogout}

@@ -4,10 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    
+    <!-- PWA Meta Tags - These make our app work like a mobile app -->
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="description" content="Smart Expense Tracker - Track your expenses with budget management and analytics" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="ExpenseTracker" />
+    
+    <!-- Manifest - This file tells the browser how to install our app -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Apple Touch Icons - App icon for iOS devices -->
+    <link rel="apple-touch-icon" href="/icon-192x192.png" />
+    
+    <title>Smart Expense Tracker</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- Changed to .js extension for JavaScript -->
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>

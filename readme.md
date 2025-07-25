@@ -1,4 +1,4 @@
-# Advanced Budget Tracker 💸
+# Spend Wise (Budget Tracker) 💸
 
 Welcome to the **Advanced Budget Tracker** project! This application is designed to help you manage your finances effectively by tracking your income and expenses, setting budget limits, and receiving notifications when you exceed your budget.
 
